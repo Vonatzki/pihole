@@ -19,6 +19,15 @@ services:
       TZ: 'Asia/Manila'
       # WEBPASSWORD: 'set a secure password here or it will be random'
     # Volumes store your data between container upgrades
+    labels:
+      - "traefik.enable=true"
+
+      # web interface
+      - "traefik.http.routers.pihole.rule=Host(`pi.hole`)"
+      - "traefik.http.services.pihole.loadbalancer.server.port=80"
+      # - "traefik.http.routers.pihole.entrypoints=websecure"
+      # - "traefik.http.routers.pihole.tls.certresolver=mytlschallenge"
+
     volumes:
       - './etc-pihole/:/etc/pihole/'
       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
