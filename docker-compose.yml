@@ -9,6 +9,7 @@ services:
 
   traefik:
     image: "traefik:v2.0.0"
+    container_name: "traefik"
     command:
       - --entrypoints.web.address=:80
       - --providers.docker=true
@@ -75,23 +76,39 @@ services:
       - "traefik.http.services.code-server.loadbalancer.server.port=8080"
     restart: unless-stopped
 
-  # Build Shinobi image using this tutorial:
-  # https://gitlab.com/Shinobi-Systems/Shinobi/-/tree/dev/Docker
-  shinobi:
-    image: "shinobi-image:1.0"
-    container_name: shinobi
+  # # Build Shinobi image using this tutorial:
+  # # https://gitlab.com/Shinobi-Systems/Shinobi/-/tree/dev/Docker
+  # shinobi:
+  #   image: "shinobi-image:1.0"
+  #   container_name: shinobi
+  #   volumes:
+  #     - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
+  #     - '/home/ubuntu/Shinobi/config:/config:rw'
+  #     - '/home/ubuntu/Shinobi/customAutoload:/home/Shinobi/libs/customAutoLoad:rw'
+  #     - '/home/ubuntu/Shinobi/database:/var/lib/mysql:rw'
+  #     - '/home/ubuntu/Shinobi/videos:/home/Shinobi/videos:rw'
+  #     - '/home/ubuntu/Shinobi/plugins:/home/Shinobi/plugins:rw'
+  #   dns:
+  #     - 8.8.8.8      
+  #   labels:
+  #     - "traefik.enable=true"
+  #     # web interface
+  #     - "traefik.http.routers.zurra-cctv.rule=Host(`cctv.zurra.trading`)"
+  #     - "traefik.http.services.zurra-cctv.loadbalancer.server.port=8080"
+  
+  # How to install motioneye:
+  # https://github.com/ccrisan/motioneye/wiki/Install-In-Docker
+  # (Follow the Build instructions to locally build in Raspberry Pi)
+  motioneye:
+    image: ccrisan/motioneye:master-armhf  # Change to ccrisan/motioneye:master-armhf for ARM chips (Pi etc.)
+    # ports:
+      # - "8081:8081"
+      # - "8765:8765"
     volumes:
-      - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
-      - '/home/ubuntu/Shinobi/config:/config:rw'
-      - '/home/ubuntu/Shinobi/customAutoload:/home/Shinobi/libs/customAutoLoad:rw'
-      - '/home/ubuntu/Shinobi/database:/var/lib/mysql:rw'
-      - '/home/ubuntu/Shinobi/videos:/home/Shinobi/videos:rw'
-      - '/home/ubuntu/Shinobi/plugins:/home/Shinobi/plugins:rw'
-    dns:
-      - 8.8.8.8      
+      - /home/ubuntu/motioneye_files/etc_motioneye:/etc/motioneye
+      - /home/ubuntu/motioneye_files/var_lib_motioneye:/var/lib/motioneye      
     labels:
       - "traefik.enable=true"
-      # web interface
       - "traefik.http.routers.zurra-cctv.rule=Host(`cctv.zurra.trading`)"
-      - "traefik.http.services.zurra-cctv.loadbalancer.server.port=8080"
+      - "traefik.http.services.zurra-cctv.loadbalancer.server.port=8765"      
   
