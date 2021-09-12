@@ -105,6 +105,8 @@ services:
     # ports:
       # - "8081:8081"
       # - "8765:8765"
+    dns: 8.8.8.8
+    restart: unless-stopped
     volumes:
       - /home/ubuntu/motioneye_files/etc_motioneye:/etc/motioneye
       - /home/ubuntu/motioneye_files/var_lib_motioneye:/var/lib/motioneye      
