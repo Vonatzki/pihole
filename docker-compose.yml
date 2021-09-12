@@ -6,6 +6,20 @@ version: "3"
 # More info: https://askubuntu.com/questions/191226/dnsmasq-failed-to-create-listening-socket-for-port-53-address-already-in-use
 
 services:
+
+  traefik:
+    image: "traefik:v2.0.0"
+    command:
+      - --entrypoints.web.address=:80
+      - --providers.docker=true
+      - --api.insecure
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    restart: unless-stopped
+
   pihole:
     container_name: pihole
     image: pihole/pihole:v5.3.4
@@ -13,7 +27,7 @@ services:
       - "53:53/tcp"
       - "53:53/udp"
       - "67:67/udp"
-      - "80:80/tcp"
+      # - "80:80/tcp"
       - "443:443/tcp"
     environment:
       TZ: 'Asia/Manila'
@@ -37,4 +51,21 @@ services:
     #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     #cap_add:
     #  - NET_ADMIN
+    restart: unless-stopped
+
+  code-server:
+    container_name: code-server
+    volumes:
+      - '/home/ubuntu/.vscode-config:/home/coder/.config'
+      - '/home/ubuntu/vscode-files:/home/coder/project'
+    user: 1000
+    dns:
+      - 8.8.8.8
+    environment:
+      DOCKER_USER: $USER
+    labels:
+      - "traefik.enable=true"
+      # web interface
+      - "traefik.http.routers.pihole.rule=Host(`vonatzki.code`)"
+      - "traefik.http.services.pihole.loadbalancer.server.port=8080"
     restart: unless-stopped
