@@ -84,6 +84,7 @@ services:
   # shinobisystems/shinobi:dev
   shinobi:
     image: "shinobisystems/shinobi:dev"
+    container_name: shinobi
     volumes:
       - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
       - '/home/ubuntu/Shinobi/config:/config:rw'
