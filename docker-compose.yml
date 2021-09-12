@@ -63,7 +63,7 @@ services:
     dns:
       - 8.8.8.8
     environment:
-      DOCKER_USER: $USER
+      DOCKER_USER: ubuntu
     labels:
       - "traefik.enable=true"
       # web interface
