@@ -96,7 +96,8 @@ services:
       - '/home/ubuntu/Shinobi/database:/var/lib/mysql:rw'
       - '/home/ubuntu/Shinobi/videos:/home/Shinobi/videos:rw'
       - '/home/ubuntu/Shinobi/plugins:/home/Shinobi/plugins:rw'
-
+    dns:
+      - 8.8.8.8      
     labels:
       - "traefik.enable=true"
       # web interface
