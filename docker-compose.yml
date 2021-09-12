@@ -70,3 +70,31 @@ services:
       - "traefik.http.routers.code-server.rule=Host(`vonatzki.code`)"
       - "traefik.http.services.code-server.loadbalancer.server.port=8080"
     restart: unless-stopped
+
+  # docker run -d
+  # --name='Shinobi'
+  # -p '8080:8080/tcp'
+  # -v "/dev/shm/Shinobi/streams":'/dev/shm/streams':'rw'
+  # -v "$HOME/Shinobi/config":'/config':'rw'
+  # -v "$HOME/Shinobi/customAutoLoad":'/home/Shinobi/libs/customAutoLoad':'rw'
+  # -v "$HOME/Shinobi/database":'/var/lib/mysql':'rw'
+  # -v "$HOME/Shinobi/videos":'/home/Shinobi/videos':'rw'
+  # -v "$HOME/Shinobi/plugins":'/home/Shinobi/plugins':'rw'
+  # -v '/etc/localtime':'/etc/localtime':'ro'
+  # shinobisystems/shinobi:dev
+  shinobi:
+    image: "shinobisystems/shinobi:dev"
+    volumes:
+      - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
+      - '/home/ubuntu/Shinobi/config:/config:rw'
+      - '/home/ubuntu/Shinobi/customAutoload:/home/Shinobi/libs/customAutoLoad:rw'
+      - '/home/ubuntu/Shinobi/database:/var/lib/mysql:rw'
+      - '/home/ubuntu/Shinobi/videos:/home/Shinobi/videos:rw'
+      - '/home/ubuntu/Shinobi/plugins:/home/Shinobi/plugins:rw'
+
+    labels:
+      - "traefik.enable=true"
+      # web interface
+      - "traefik.http.routers.zurra-cctv.rule=Host(`cctv.zurra.trading`)"
+      - "traefik.http.services.zurra-cctv.loadbalancer.server.port=8080"
+  
