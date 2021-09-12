@@ -58,7 +58,7 @@ services:
     volumes:
       - '/home/ubuntu/.vscode-config:/home/coder/.config'
       - '/home/ubuntu/vscode-files:/home/coder/project'
-    user: 1000
+    user: "${UID}:${GID}"
     dns:
       - 8.8.8.8
     environment:
