@@ -75,17 +75,8 @@ services:
       - "traefik.http.services.code-server.loadbalancer.server.port=8080"
     restart: unless-stopped
 
-  # docker run -d
-  # --name='Shinobi'
-  # -p '8080:8080/tcp'
-  # -v "/dev/shm/Shinobi/streams":'/dev/shm/streams':'rw'
-  # -v "$HOME/Shinobi/config":'/config':'rw'
-  # -v "$HOME/Shinobi/customAutoLoad":'/home/Shinobi/libs/customAutoLoad':'rw'
-  # -v "$HOME/Shinobi/database":'/var/lib/mysql':'rw'
-  # -v "$HOME/Shinobi/videos":'/home/Shinobi/videos':'rw'
-  # -v "$HOME/Shinobi/plugins":'/home/Shinobi/plugins':'rw'
-  # -v '/etc/localtime':'/etc/localtime':'ro'
-  # shinobisystems/shinobi:dev
+  # Build Shinobi image using this tutorial:
+  # https://gitlab.com/Shinobi-Systems/Shinobi/-/tree/dev/Docker
   shinobi:
     image: "shinobi-image:1.0"
     container_name: shinobi
