@@ -83,7 +83,7 @@ services:
   # -v '/etc/localtime':'/etc/localtime':'ro'
   # shinobisystems/shinobi:dev
   shinobi:
-    image: "shinobisystems/shinobi:dev"
+    image: "shinobi-image:1.0"
     container_name: shinobi
     volumes:
       - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
