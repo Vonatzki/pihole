@@ -54,6 +54,7 @@ services:
     restart: unless-stopped
 
   code-server:
+    image: "codercom/code-server:latest"
     container_name: code-server
     volumes:
       - '/home/ubuntu/.vscode-config:/home/coder/.config'
