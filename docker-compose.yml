@@ -82,16 +82,16 @@ services:
     container_name: shinobi
     volumes:
       - '/dev/shm/Shinobi/streams:/dev/shm/streams:rw'
-      - '/home/ubuntu/Shinobi/config:/config:rw'
-      - '/home/ubuntu/Shinobi/customAutoload:/home/Shinobi/libs/customAutoLoad:rw'
-      - '/home/ubuntu/Shinobi/database:/var/lib/mysql:rw'
-      - '/home/ubuntu/Shinobi/videos:/home/Shinobi/videos:rw'
-      - '/home/ubuntu/Shinobi/plugins:/home/Shinobi/plugins:rw'
+      - '/mnt/external/Shinobi/config:/config:rw'
+      - '/mnt/external/Shinobi/customAutoload:/home/Shinobi/libs/customAutoLoad:rw'
+      - '/mnt/external/Shinobi/database:/var/lib/mysql:rw'
+      - '/mnt/external/Shinobi/videos:/home/Shinobi/videos:rw'
+      - '/mnt/external/Shinobi/plugins:/home/Shinobi/plugins:rw'
+    restart: unless-stopped
     dns:
       - 8.8.8.8      
     labels:
       - "traefik.enable=true"
-      # web interface
       - "traefik.http.routers.zurra-cctv.rule=Host(`cctv.zurra.trading`)"
       - "traefik.http.services.zurra-cctv.loadbalancer.server.port=8080"
   
