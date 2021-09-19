@@ -63,6 +63,7 @@ services:
     volumes:
       - '/home/ubuntu/.vscode-config:/home/coder/.config'
       - '/home/ubuntu/vscode-files:/home/coder/project'
+      - '/home/ubuntu/vscode-settings:/home/coder/.local/share/code-server'
     user: "1000:1000"
     dns:
       - 8.8.8.8
