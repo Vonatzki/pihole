@@ -4,6 +4,7 @@ services:
   
   traefik:
     image: "traefik:v2.0.0"
+    container_name: traefik
     command:
       - --entrypoints.web.address=:80
       - --providers.docker=true
@@ -72,8 +73,8 @@ services:
       # web interface
       - "traefik.http.routers.code-server.rule=Host(`vonatzki.code`)"
       - "traefik.http.services.code-server.loadbalancer.server.port=8080"
-      - "traefik.http.routers.code-dev.rule=Host(`vonatzki.dev`)"
-      - "traefik.http.services.code-dev.loadbalancer.server.port=4000"v
+      # - "traefik.http.routers.code-dev.rule=Host(`vonatzki.dev`)"
+      # - "traefik.http.services.code-dev.loadbalancer.server.port=4000"
 
     restart: unless-stopped
 
