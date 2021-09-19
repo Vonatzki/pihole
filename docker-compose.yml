@@ -8,16 +8,16 @@ services:
       - --entrypoints.web.address=:80
       - --providers.docker=true
       - --api.insecure
-      ports:
-        - "80:80"
-        # - "8080:8080"
-        volumes:
-          - "/var/run/docker.sock:/var/run/docker.sock:ro"
-          labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.traefik-dashboard.rule=Host(`pi.traefik`)"
-            - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
-            restart: unless-stopped
+    ports:
+      - "80:80"
+      # - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`pi.traefik`)"
+      - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
+    restart: unless-stopped
             
   # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
   
